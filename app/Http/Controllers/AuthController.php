@@ -13,7 +13,8 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'device_name' => 'required'
         ]);
 
         $user = User::findByEmail($request->email);
@@ -24,7 +25,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $token = $user->createToken('token-name')->plainTextToken;
+        $token = $user->createToken($request->device_name)->plainTextToken;
 
         return compact('token');
     }

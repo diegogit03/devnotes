@@ -9,13 +9,18 @@ class Note extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+
     public function User() {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public static function allFromUser(User $user) {
         return Note::query()
-            ->whereBelongsTo($user)
+            ->where('user_id', '=', $user->id)
             ->get();
     }
 }
