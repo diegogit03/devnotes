@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function findByEmail(string $email) {
+        return self::query()
+            ->where('email', '=', $email)
+            ->firstOrFail();
+    }
 }
