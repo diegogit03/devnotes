@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class NotesController extends Controller
@@ -24,7 +25,14 @@ class NotesController extends Controller
      */
     public function store(StoreNoteRequest $request)
     {
+        $user = Auth::user();
 
+        $note = new Note($request->all());
+        $note->user_id = $user->id;
+
+        $note->save();
+
+        return response($note, 201);
     }
 
     /**
@@ -32,7 +40,7 @@ class NotesController extends Controller
      */
     public function show(Note $note)
     {
-        //
+        return $note;
     }
 
     /**
@@ -40,7 +48,9 @@ class NotesController extends Controller
      */
     public function update(UpdateNoteRequest $request, Note $note)
     {
-        //
+        $note->update($request->all());
+
+        return $note;
     }
 
     /**
@@ -48,6 +58,8 @@ class NotesController extends Controller
      */
     public function destroy(Note $note)
     {
-        //
+        $note->delete();
+
+        return response('', 204);
     }
 }
