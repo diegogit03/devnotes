@@ -2,6 +2,11 @@
     <div class="login-container">
         <form class="login-box" @submit.prevent="submit">
             <el-input
+                v-model="form.name"
+                placeholder="Nome"
+                size="large"
+            />
+            <el-input
                 v-model="form.email"
                 placeholder="E-mail"
                 size="large"
@@ -12,8 +17,14 @@
                 size="large"
                 type="password"
             />
+            <el-input
+                v-model="form.password_confirmation"
+                placeholder="Confirme a senha"
+                size="large"
+                type="password"
+            />
             <el-button type="primary">
-                Entrar
+                Registrar
             </el-button>
         </form>
     </div>
@@ -23,8 +34,10 @@
 export default {
     data: () => ({
         form: {
+            name: '',
             email: '',
-            password: ''
+            password: '',
+            password_confirmation: ''
         }
     }),
     methods: {

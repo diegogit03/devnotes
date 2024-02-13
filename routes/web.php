@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,6 +15,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Auth');
-});
+Route::inertia('/', 'Auth');
+Route::inertia('/register', 'Register');
+Route::inertia('/notes', 'Auth');
+Route::inertia('/notes/{note}', 'Auth');
